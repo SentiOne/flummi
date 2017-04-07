@@ -1,7 +1,7 @@
 Fork cause some people are stuck with java 1.7 but still want to interract with 5.x elastic search
 =================================
 Changes that were made:
-* changed java8 api stream to [supporttream](https://github.com/streamsupport/streamsupport)
+* changed java8 api stream to [streamsupport](https://github.com/streamsupport/streamsupport)
 * changed some other small stuff like UncheckedIOException and String.join
 * added [retrolambda](https://github.com/orfjackal/retrolambda) to leave lambda in and still make it work on 1.7 somehow
 
