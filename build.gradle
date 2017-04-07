@@ -13,6 +13,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id "com.jfrog.artifactory" version "4.4.10"
+    id "me.tatarka.retrolambda" version "3.6.0"
 }
 
 
@@ -70,10 +71,16 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
+task testJar(type: Jar) {
+    from sourceSets.test.output+sourceSets.test.allSource
+    classifier = 'tests'
+}
+
 artifacts {
     archives jar
     archives javadocJar
     archives sourcesJar
+    archives testJar
 }
 
 if (!project.hasProperty('isSnapshot')) {
@@ -170,4 +177,10 @@ artifactory {
             repoKey = 'libs-release-virtual'
         }
     }
+}
+
+retrolambda {
+    javaVersion JavaVersion.VERSION_1_7
+    defaultMethods true
+    incremental true
 }
