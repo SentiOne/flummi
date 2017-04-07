@@ -6,10 +6,10 @@ import com.ning.http.client.Response;
 import de.otto.flummi.RequestBuilderUtil;
 import de.otto.flummi.response.GetResponse;
 import de.otto.flummi.util.HttpClientWrapper;
+import de.otto.flummi.util.UncheckedIOException;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 

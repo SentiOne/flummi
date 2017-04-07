@@ -5,9 +5,9 @@ import com.google.gson.JsonObject;
 import com.ning.http.client.Response;
 import de.otto.flummi.response.SearchResponse;
 import de.otto.flummi.util.HttpClientWrapper;
+import de.otto.flummi.util.UncheckedIOException;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.concurrent.ExecutionException;
 
 import static de.otto.flummi.RequestBuilderUtil.toHttpServerErrorException;

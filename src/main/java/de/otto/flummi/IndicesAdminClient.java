@@ -9,9 +9,10 @@ import de.otto.flummi.request.*;
 import de.otto.flummi.util.HttpClientWrapper;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.Map;
+
+import de.otto.flummi.util.UncheckedIOException;
 import java8.util.Optional;
 import java.util.concurrent.ExecutionException;
 

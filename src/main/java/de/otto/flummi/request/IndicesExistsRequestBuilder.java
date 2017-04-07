@@ -4,10 +4,10 @@ package de.otto.flummi.request;
 import com.ning.http.client.Response;
 import de.otto.flummi.response.HttpServerErrorException;
 import de.otto.flummi.util.HttpClientWrapper;
+import de.otto.flummi.util.UncheckedIOException;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.concurrent.ExecutionException;
 
 import static org.slf4j.LoggerFactory.getLogger;

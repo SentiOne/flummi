@@ -2,9 +2,9 @@ package de.otto.flummi;
 
 import com.ning.http.client.Response;
 import de.otto.flummi.response.HttpServerErrorException;
+import de.otto.flummi.util.UncheckedIOException;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 
 public class RequestBuilderUtil {
 

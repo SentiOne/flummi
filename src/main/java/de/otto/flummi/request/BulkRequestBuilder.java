@@ -9,10 +9,10 @@ import com.ning.http.client.Response;
 import de.otto.flummi.InvalidElasticsearchResponseException;
 import de.otto.flummi.bulkactions.BulkActionBuilder;
 import de.otto.flummi.util.HttpClientWrapper;
+import de.otto.flummi.util.UncheckedIOException;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

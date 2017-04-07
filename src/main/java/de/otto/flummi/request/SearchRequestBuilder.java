@@ -11,12 +11,12 @@ import de.otto.flummi.query.sort.FieldSortBuilder;
 import de.otto.flummi.query.sort.SortBuilder;
 import de.otto.flummi.response.*;
 import de.otto.flummi.util.HttpClientWrapper;
+import de.otto.flummi.util.UncheckedIOException;
 import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
