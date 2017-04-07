@@ -4,13 +4,15 @@ import com.ning.http.client.AsyncHttpClient;
 import de.otto.flummi.CompletedFuture;
 import de.otto.flummi.MockResponse;
 import de.otto.flummi.util.HttpClientWrapper;
+import java8.util.J8Arrays;
+import java8.util.Spliterator;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.*;
 
 import static de.otto.flummi.request.GsonHelper.object;
-import static java.util.stream.Collectors.toList;
+import static java8.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyString;
@@ -114,6 +116,6 @@ public class ScrollingSearchHitsTest {
     }
 
     private List<SearchHit> someSearchHits(String... ids) {
-        return Arrays.stream(ids).map(id -> new SearchHit(id, object(), null, 1F)).collect(toList());
+        return J8Arrays.stream(ids).map(id -> new SearchHit(id, object(), null, 1F)).collect(toList());
     }
 }

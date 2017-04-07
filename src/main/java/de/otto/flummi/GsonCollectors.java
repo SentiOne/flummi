@@ -3,12 +3,13 @@ package de.otto.flummi;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
+import java8.util.function.BiConsumer;
+import java8.util.function.BinaryOperator;
+import java8.util.function.Supplier;
+import java8.util.stream.Collector;
+import java8.util.stream.Collectors;
 
-import static java.util.function.Function.identity;
+import static java8.util.function.Functions.identity;
 
 public class GsonCollectors {
     public static Collector<JsonElement, JsonArray, JsonArray> toJsonArray() {
@@ -18,6 +19,6 @@ public class GsonCollectors {
             array1.addAll(array2);
             return array1;
         };
-        return Collector.of(supplier, accumulator, combiner, identity());
+        return Collectors.of(supplier, accumulator, combiner, identity());
     }
 }

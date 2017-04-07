@@ -5,9 +5,9 @@ import de.otto.flummi.RequestBuilderUtil;
 import de.otto.flummi.util.HttpClientWrapper;
 
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Stream;
+import java8.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
+import static java8.util.stream.Collectors.toList;
 
 public class DeleteIndexRequestBuilder implements RequestBuilder<Void> {
     private final HttpClientWrapper httpClient;

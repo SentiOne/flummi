@@ -2,11 +2,11 @@ package de.otto.flummi.query;
 
 import com.google.gson.JsonObject;
 import de.otto.flummi.GsonCollectors;
+import java8.util.stream.StreamSupport;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static java.util.Arrays.stream;
 
 public class AndQueryBuilder implements QueryBuilder {
 
@@ -26,7 +26,7 @@ public class AndQueryBuilder implements QueryBuilder {
             throw new RuntimeException("missing property 'queries'");
         }
         JsonObject jsonObject = new JsonObject();
-        jsonObject.add("and", queries.stream()
+        jsonObject.add("and", StreamSupport.stream(queries)
                 .map(filter -> filter.build())
                 .collect(GsonCollectors.toJsonArray()));
         return jsonObject;

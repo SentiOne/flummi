@@ -2,15 +2,17 @@ package de.otto.flummi.response;
 
 import de.otto.flummi.request.SearchScrollRequestBuilder;
 import de.otto.flummi.util.HttpClientWrapper;
+import java8.util.Spliterators;
 import org.slf4j.Logger;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import java8.util.Spliterator;
+import java8.util.function.Consumer;
+import java8.util.stream.Stream;
+import java8.util.stream.StreamSupport;
 
+import static java8.util.Spliterator.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
@@ -97,7 +99,7 @@ public class ScrollingSearchHits implements SearchHits {
     public void forEach(Consumer<? super SearchHit> action) {
         assertNotDirty();
         while(!hitsCurrentPage.isEmpty()) {
-            hitsCurrentPage.forEach(action);
+            StreamSupport.stream(hitsCurrentPage).forEach(action);
             fetchNextPage();
         }
     }
@@ -105,32 +107,7 @@ public class ScrollingSearchHits implements SearchHits {
     @Override
     public Spliterator<SearchHit> spliterator() {
         assertNotDirty();
-        return new Spliterator<SearchHit>() {
-            Iterator<SearchHit> iterator = iterator();
-            @Override
-            public boolean tryAdvance(Consumer<? super SearchHit> action) {
-                if(iterator.hasNext()) {
-                    action.accept(iterator.next());
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public Spliterator<SearchHit> trySplit() {
-                return null;
-            }
-
-            @Override
-            public long estimateSize() {
-                return totalHits;
-            }
-
-            @Override
-            public int characteristics() {
-                return ORDERED | SIZED | NONNULL | IMMUTABLE;
-            }
-        };
+        return Spliterators.spliterator(iterator(),totalHits, ORDERED | SIZED | NONNULL | IMMUTABLE);
     }
 
     @Override

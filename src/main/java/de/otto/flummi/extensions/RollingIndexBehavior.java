@@ -2,16 +2,17 @@ package de.otto.flummi.extensions;
 
 import com.google.gson.JsonObject;
 import de.otto.flummi.IndicesAdminClient;
+import java8.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
-import java.util.Optional;
+import java8.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java8.util.function.Function;
+import java8.util.function.Predicate;
 
-import static java.util.stream.Collectors.toSet;
+import static java8.util.stream.Collectors.toSet;
 
 public class RollingIndexBehavior {
 
@@ -70,15 +71,14 @@ public class RollingIndexBehavior {
 
         Optional<String> aliasToIndex = client.getIndexNameForAlias(alias);
         Set<String> names =
-                client.getAllIndexNames()
-                        .stream()
+                StreamSupport.stream(client.getAllIndexNames())
                         .filter(startsWith(prefix))
                         .sorted(Comparator.reverseOrder()) // TODO: here we should have Index objects and sort by created date value (Comparator.reverseOrder implies !Comparator.naturalOrder())
                         .skip(survivor)
                         .filter(skipAlias(aliasToIndex)) // never delete current aliased index
                         .collect(toSet());
         if (!names.isEmpty()) {
-            client.prepareDelete(names.stream()).execute();
+            client.prepareDelete(StreamSupport.stream(names)).execute();
         }
         LOG.info("Indices deleted {}", names);
         return names;

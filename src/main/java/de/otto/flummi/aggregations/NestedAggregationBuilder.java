@@ -3,6 +3,7 @@ package de.otto.flummi.aggregations;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import de.otto.flummi.response.AggregationResult;
+import java8.util.stream.StreamSupport;
 
 public class NestedAggregationBuilder extends SubAggregationBuilder<NestedAggregationBuilder> {
     private String path;
@@ -32,7 +33,7 @@ public class NestedAggregationBuilder extends SubAggregationBuilder<NestedAggreg
         nestedObject.add("path", new JsonPrimitive(path));
         JsonObject aggsJson = new JsonObject();
 
-        subAggregations.stream().forEach(a -> aggsJson.add(a.getName(), a.build()));
+        StreamSupport.stream(subAggregations).forEach(a -> aggsJson.add(a.getName(), a.build()));
         jsonObject.add("aggregations", aggsJson);
         return jsonObject;
     }

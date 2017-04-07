@@ -1,11 +1,11 @@
 package de.otto.flummi.response;
 
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
+import java8.util.Spliterator;
+import java8.util.function.Consumer;
+import java8.util.stream.Stream;
 
-public interface SearchHits extends Iterable<SearchHit> {
+public interface SearchHits {
     long getTotalHits();
 
     /**

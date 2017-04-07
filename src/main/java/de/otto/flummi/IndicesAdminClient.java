@@ -12,12 +12,15 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java8.util.Optional;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Stream;
+
+import java8.util.stream.RefStreams;
+import java8.util.stream.Stream;
+import java8.util.stream.StreamSupport;
 
 import static de.otto.flummi.request.GsonHelper.object;
-import static java.util.stream.Collectors.toList;
+import static java8.util.stream.Collectors.toList;
 
 public class IndicesAdminClient {
 
@@ -41,7 +44,7 @@ public class IndicesAdminClient {
     }
 
     public DeleteIndexRequestBuilder prepareDelete(String... indexNames) {
-        return new DeleteIndexRequestBuilder(httpClient, Stream.of(indexNames));
+        return new DeleteIndexRequestBuilder(httpClient, RefStreams.of(indexNames));
     }
 
     public RefreshRequestBuilder prepareRefresh(String indexName) {
@@ -79,7 +82,7 @@ public class IndicesAdminClient {
             String jsonString = response.getResponseBody();
             JsonObject responseObject = gson.fromJson(jsonString, JsonObject.class);
 
-            return responseObject.entrySet().stream()
+            return StreamSupport.stream(responseObject.entrySet())
                     .map(Map.Entry::getKey)
                     .collect(toList());
         } catch (IOException e) {
@@ -97,7 +100,7 @@ public class IndicesAdminClient {
             }
             String jsonString = response.getResponseBody();
 
-            return gson.fromJson(jsonString, JsonObject.class).entrySet().stream()
+            return StreamSupport.stream(gson.fromJson(jsonString, JsonObject.class).entrySet())
                     .filter(e -> (e.getValue() != null
                             && e.getValue().isJsonObject()
                             && e.getValue().getAsJsonObject().get("aliases") != null
@@ -153,7 +156,7 @@ public class IndicesAdminClient {
             String jsonString = response.getResponseBody();
             JsonObject responseObject = gson.fromJson(jsonString, JsonObject.class);
 
-            return responseObject.entrySet().stream().filter(e ->
+            return StreamSupport.stream(responseObject.entrySet()).filter(e ->
                     (e.getValue() != null
                             && e.getValue().isJsonObject()
                             && e.getValue().getAsJsonObject().get("aliases") != null

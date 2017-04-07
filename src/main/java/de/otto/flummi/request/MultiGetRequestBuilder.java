@@ -8,6 +8,7 @@ import de.otto.flummi.response.MultiGetRequestDocument;
 import de.otto.flummi.response.MultiGetResponse;
 import de.otto.flummi.response.MultiGetResponseDocument;
 import de.otto.flummi.util.HttpClientWrapper;
+import java8.util.stream.StreamSupport;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 import static de.otto.flummi.RequestBuilderUtil.toHttpServerErrorException;
 import static de.otto.flummi.request.GsonHelper.array;
 import static java.util.Collections.emptyList;
-import static java.util.stream.Collectors.toList;
+import static java8.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class MultiGetRequestBuilder implements RequestBuilder<MultiGetResponse> {
@@ -60,7 +61,7 @@ public class MultiGetRequestBuilder implements RequestBuilder<MultiGetResponse> 
             String url = RequestBuilderUtil.buildUrl(indices, types, "_mget");
             JsonObject body = new JsonObject();
             if (documents != null) {
-                body.add("docs", array(documents.stream().map(d -> create(d)).collect(toList())));
+                body.add("docs", array(StreamSupport.stream(documents).map(d -> create(d)).collect(toList())));
             }
             AsyncHttpClient.BoundRequestBuilder boundRequestBuilder = httpClient
                     .preparePost(url)

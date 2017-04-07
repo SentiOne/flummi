@@ -2,7 +2,7 @@ package de.otto.flummi.extensions;
 
 import de.otto.flummi.IndicesAdminClient;
 
-import java.util.function.Function;
+import java8.util.function.Function;
 
 public class RollingIndexBehaviorBuilder {
     private final IndicesAdminClient client;

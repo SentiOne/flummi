@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import de.otto.flummi.response.AggregationResult;
 import de.otto.flummi.response.Bucket;
 import de.otto.flummi.response.BucketAggregationResult;
+import java8.util.stream.StreamSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,8 +35,10 @@ public class AggregationResultParser {
         Map<String, AggregationResult> aggregations = new HashMap<>();
 
         if (subAggregations != null) {
-            subAggregations.stream().forEach(t ->
-                    aggregations.put(t.getName(), t.parseResponse(jsonObject.get(t.getName()).getAsJsonObject())));
+            StreamSupport.stream(subAggregations)
+                .forEach(t ->
+                    aggregations.put(t.getName(), t.parseResponse(jsonObject.get(t.getName()).getAsJsonObject()))
+                );
         }
 
         return new BucketAggregationResult(aggregations);

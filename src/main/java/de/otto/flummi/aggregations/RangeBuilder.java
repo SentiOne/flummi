@@ -3,6 +3,7 @@ package de.otto.flummi.aggregations;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import de.otto.flummi.response.AggregationResult;
+import java8.util.stream.StreamSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,8 @@ public class RangeBuilder extends SubAggregationBuilder<RangeBuilder> {
     @Override
     public JsonObject build() {
         JsonObject rangeAggregatorObject = object(
-                "field", new JsonPrimitive(fieldName),
-                "ranges", ranges.stream().map(this::rangeToJson).collect(toJsonArray()));
+        		"field", new JsonPrimitive(fieldName),
+						"ranges", StreamSupport.stream(ranges).map(this::rangeToJson).collect(toJsonArray()));
         return object("range", rangeAggregatorObject);
     }
 

@@ -11,6 +11,8 @@ import de.otto.flummi.query.sort.FieldSortBuilder;
 import de.otto.flummi.query.sort.SortBuilder;
 import de.otto.flummi.response.*;
 import de.otto.flummi.util.HttpClientWrapper;
+import java8.util.stream.Collectors;
+import java8.util.stream.StreamSupport;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collector;
+import java8.util.stream.Collector;
 
 import static de.otto.flummi.RequestBuilderUtil.toHttpServerErrorException;
 import static de.otto.flummi.response.SearchResponse.emptyResponse;
@@ -144,8 +146,7 @@ public class SearchRequestBuilder implements RequestBuilder<SearchResponse> {
                 body.add("post_filter", postFilter.build());
             }
             if (aggregations != null) {
-                JsonObject jsonObject = aggregations
-                        .stream()
+                JsonObject jsonObject = StreamSupport.stream(aggregations)
                         .collect(toJsonObject());
 
                 body.add("aggregations", jsonObject);
@@ -181,7 +182,7 @@ public class SearchRequestBuilder implements RequestBuilder<SearchResponse> {
             if (aggregationsJsonElement != null) {
                 final JsonObject aggregationsJsonObject = aggregationsJsonElement.getAsJsonObject();
 
-                aggregations.forEach(a -> {
+                StreamSupport.stream(aggregations).forEach(a -> {
                     JsonElement aggregationElement = aggregationsJsonObject.get(a.getName());
                     if (aggregationElement != null) {
                         AggregationResult aggregation = a.parseResponse(aggregationElement.getAsJsonObject());
@@ -198,7 +199,7 @@ public class SearchRequestBuilder implements RequestBuilder<SearchResponse> {
     }
 
     private static Collector<AggregationBuilder, JsonObject, JsonObject> toJsonObject() {
-        return Collector.of(JsonObject::new,
+        return Collectors.of(JsonObject::new,
                 (json, a) -> json.add(a.getName(), a.build()),
                 (left, right) -> left);
     }

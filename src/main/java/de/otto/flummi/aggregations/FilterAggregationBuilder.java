@@ -3,6 +3,7 @@ package de.otto.flummi.aggregations;
 import com.google.gson.JsonObject;
 import de.otto.flummi.query.QueryBuilder;
 import de.otto.flummi.response.AggregationResult;
+import java8.util.stream.StreamSupport;
 
 import static de.otto.flummi.request.GsonHelper.object;
 
@@ -26,7 +27,7 @@ public class FilterAggregationBuilder extends SubAggregationBuilder<FilterAggreg
             throw new RuntimeException("No subAggregations defined");
         }
         JsonObject aggsJson = new JsonObject();
-        subAggregations.stream().forEach(a -> aggsJson.add(a.getName(), a.build()));
+        StreamSupport.stream(subAggregations).forEach(a -> aggsJson.add(a.getName(), a.build()));
         return object("filter", filter.build(),
                 "aggregations", aggsJson);
     }

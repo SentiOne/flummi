@@ -3,6 +3,7 @@ package de.otto.flummi.query;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import java8.util.stream.StreamSupport;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class TermsQueryBuilder implements QueryBuilder{
         if (terms == null || terms.isEmpty()) {
             throw new RuntimeException("missing property 'terms'");
         }
-        this.terms = terms.stream().map(JsonPrimitive::new).collect(toJsonArray());
+        this.terms = StreamSupport.stream(terms).map(JsonPrimitive::new).collect(toJsonArray());
     }
 
     public TermsQueryBuilder(String name, JsonElement terms) {

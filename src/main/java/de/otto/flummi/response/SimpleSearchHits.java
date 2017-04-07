@@ -3,9 +3,11 @@ package de.otto.flummi.response;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
+import java8.util.Spliterator;
+import java8.util.Spliterators;
+import java8.util.function.Consumer;
+import java8.util.stream.Stream;
+import java8.util.stream.StreamSupport;
 
 /**
  * Simple implementation of SearchHits. Only contains a single page of search results
@@ -46,17 +48,17 @@ public class SimpleSearchHits implements SearchHits {
 
     @Override
     public void forEach(Consumer<? super SearchHit> action) {
-        hits.forEach(action);
+        StreamSupport.stream(hits).forEach(action);
     }
 
     @Override
     public Spliterator<SearchHit> spliterator() {
-        return hits.spliterator();
+        return Spliterators.spliterator(hits);
     }
 
     @Override
     public Stream<SearchHit> stream() {
-        return hits.stream();
+        return StreamSupport.stream(hits);
     }
 }
 

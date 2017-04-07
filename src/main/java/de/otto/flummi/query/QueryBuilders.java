@@ -3,14 +3,13 @@ package de.otto.flummi.query;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import java8.util.J8Arrays;
+import java8.util.stream.StreamSupport;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static de.otto.flummi.GsonCollectors.toJsonArray;
 import static de.otto.flummi.request.GsonHelper.object;
-import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 
 public class QueryBuilders {
 
@@ -46,19 +45,19 @@ public class QueryBuilders {
     }
 
     public static TermsQueryBuilder termsQuery(String name, String... values) {
-        return new TermsQueryBuilder(name, Arrays.stream(values).map(JsonPrimitive::new).collect(toJsonArray()));
+        return new TermsQueryBuilder(name, J8Arrays.stream(values).map(JsonPrimitive::new).collect(toJsonArray()));
     }
 
     public static TermsQueryBuilder termsQuery(String name, Boolean... values) {
-        return new TermsQueryBuilder(name, Arrays.stream(values).map(JsonPrimitive::new).collect(toJsonArray()));
+        return new TermsQueryBuilder(name, J8Arrays.stream(values).map(JsonPrimitive::new).collect(toJsonArray()));
     }
 
     public static TermsQueryBuilder termsQuery(String name, Number... values) {
-        return new TermsQueryBuilder(name, Arrays.stream(values).map(JsonPrimitive::new).collect(toJsonArray()));
+        return new TermsQueryBuilder(name, J8Arrays.stream(values).map(JsonPrimitive::new).collect(toJsonArray()));
     }
 
     public static TermsQueryBuilder termsQuery(String name, List<String> values) {
-        return new TermsQueryBuilder(name, values.stream().map(JsonPrimitive::new).collect(toJsonArray()));
+        return new TermsQueryBuilder(name, StreamSupport.stream(values).map(JsonPrimitive::new).collect(toJsonArray()));
     }
 
     public static TermQueryBuilder termQuery(String name, JsonElement value) {

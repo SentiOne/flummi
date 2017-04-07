@@ -6,7 +6,7 @@ import de.otto.flummi.request.*;
 import de.otto.flummi.util.HttpClientWrapper;
 
 import java.util.List;
-import java.util.Optional;
+import java8.util.Optional;
 
 
 public class Flummi {

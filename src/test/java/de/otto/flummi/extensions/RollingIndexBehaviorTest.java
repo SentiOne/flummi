@@ -6,9 +6,9 @@ import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
+import java8.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
+import java8.util.stream.Stream;
 
 import static de.otto.flummi.extensions.RollingIndexBehaviorBuilder.builder;
 import static java.util.Arrays.asList;

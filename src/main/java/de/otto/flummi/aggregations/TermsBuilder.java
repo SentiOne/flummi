@@ -6,6 +6,7 @@ import com.google.gson.JsonPrimitive;
 import de.otto.flummi.SortOrder;
 import de.otto.flummi.response.AggregationResult;
 import de.otto.flummi.util.Pair;
+import java8.util.stream.StreamSupport;
 
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class TermsBuilder extends SubAggregationBuilder<TermsBuilder> {
         }
         if (orders != null) {
             JsonObject orderObject = new JsonObject();
-            orders.forEach(e -> orderObject.add(e.getKey(), new JsonPrimitive(e.getValue().toString())));
+            StreamSupport.stream(orders).forEach(e -> orderObject.add(e.getKey(), new JsonPrimitive(e.getValue().toString())));
             fields.add("order", orderObject);
         }
         return jsonObject;
@@ -74,7 +75,7 @@ public class TermsBuilder extends SubAggregationBuilder<TermsBuilder> {
         }
         if (orders != null) {
             JsonObject orderObject = new JsonObject();
-            orders.forEach(e -> orderObject.add(e.getKey(), new JsonPrimitive(e.getValue().toString())));
+            StreamSupport.stream(orders).forEach(e -> orderObject.add(e.getKey(), new JsonPrimitive(e.getValue().toString())));
             fields.add("order", orderObject);
         }
         return fields;
