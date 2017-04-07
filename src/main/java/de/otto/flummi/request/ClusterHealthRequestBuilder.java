@@ -8,6 +8,7 @@ import de.otto.flummi.ClusterHealthResponse;
 import de.otto.flummi.ClusterHealthStatus;
 import de.otto.flummi.InvalidElasticsearchResponseException;
 import de.otto.flummi.util.HttpClientWrapper;
+import de.otto.flummi.util.StringUtils;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class ClusterHealthRequestBuilder implements RequestBuilder<ClusterHealth
         try {
             StringBuilder url = new StringBuilder("/_cluster/health");
             if (indexNames != null) {
-                url.append("/").append(String.join(",", indexNames));
+                url.append("/").append(StringUtils.join(indexNames, ","));
             }
             AsyncHttpClient.BoundRequestBuilder requestBuilder = httpClient.prepareGet(url.toString());
             if (waitForYellowStatus) {

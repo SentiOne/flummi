@@ -2,6 +2,7 @@ package de.otto.flummi;
 
 import com.ning.http.client.Response;
 import de.otto.flummi.response.HttpServerErrorException;
+import de.otto.flummi.util.StringUtils;
 import de.otto.flummi.util.UncheckedIOException;
 
 import java.io.IOException;
@@ -13,10 +14,10 @@ public class RequestBuilderUtil {
     public static String buildUrl(String[] indexNames, String[] types, String operationOrId) {
         StringBuilder urlBuilder = new StringBuilder();
         if (indexNames != null && indexNames.length > 0) {
-            urlBuilder.append("/").append(String.join(",", indexNames));
+            urlBuilder.append("/").append(StringUtils.join(indexNames, ","));
         }
         if (types != null && types.length > 0) {
-            urlBuilder.append("/").append(String.join(",", types));
+            urlBuilder.append("/").append(StringUtils.join(types, ","));
         }
         if (operationOrId != null) {
             // final String[] splitBySlash = operationOrId.split("/");
