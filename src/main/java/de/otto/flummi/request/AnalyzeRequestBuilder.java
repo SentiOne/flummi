@@ -1,17 +1,14 @@
 package de.otto.flummi.request;
 
 import com.google.gson.*;
-import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
-import de.otto.flummi.RequestBuilderUtil;
 import de.otto.flummi.response.AnalyzeResponse;
 import de.otto.flummi.response.Token;
 import de.otto.flummi.util.HttpClientWrapper;
+import de.otto.flummi.util.UncheckedIOException;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
